@@ -1,0 +1,19 @@
+- name: install epel repository
+  yum: name=http://ftp.jaist.ac.jp/pub/Linux/Fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm state=present
+# if you need to copy ssh key for another computer, put files in roles/proxy/files and uncomment the following part.
+#- name: copy ssh key for some other users/machines
+#  local_action: command ssh-copy-id -i {{item}} -o StrictHostKeyChecking=no root@{{ansible_default_ipv4.address}}
+#  sudo: no
+#  with_items:
+#    - roles/proxy/files/id_rsa_another
+- name: install privoxy
+  yum: name={{item}} state=present disable_gpg_check=yes enablerepo=epel
+  with_items:
+    - privoxy
+- name: replace 22 port in sshd_config with 443 port
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^#Port 22' line='Port 443'
+- name: enable-service
+  service: name={{item}} state=restarted enabled=yes
+  with_items:
+    - sshd
+    - privoxy
