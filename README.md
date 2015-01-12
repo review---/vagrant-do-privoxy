@@ -1,6 +1,6 @@
 # About
 
-This repository shows examples for [my post on Qiita](), a Japanese technical knowledge sharing platform.
+This repository shows examples for [my post on Qiita](http://qiita.com/kiida/items/37557a1029788afec98a), a Japanese technical knowledge sharing platform.
 In the post, I described benefits to have your own proxy server outside your company especially when your company has a strictly configured proxy/firewall.
 
 The followings are some benefits I came up with.
@@ -37,7 +37,7 @@ Now, you can ssh to any server via your server configured above.
 
 ![proxy03](https://raw.github.com/wiki/daikikohara/vagrant-do-privoxy/images/proxy03.png)
 
-Next, you would like to access any sites on your web browser.
+Next, you would like to access any sites from your web browser.
 Steps to do this is a bit more complex but still easy.
 
 First, install a proxy software on your external server.
@@ -57,7 +57,7 @@ You also need to add some options like -p port and/or -l user if you don't confi
 
 Finally, set proxy settings of your browser to ssh tunnel.(in this example local:8888)
 
-Here, you'll see any sites on your browser even if the sites are blocked by a proxy of your company.
+Here, you'll see any sites from your browser even if the sites are blocked by a proxy of your company.
 
 ![proxy06](https://raw.github.com/wiki/daikikohara/vagrant-do-privoxy/images/proxy06.png)
 
@@ -66,19 +66,19 @@ Here, you'll see any sites on your browser even if the sites are blocked by a pr
 Vagrantfile in this repository creates a VM(droplet) on digitalocean and configures sshd and privoxy using Ansible provisioner.
 So, if you don't have [Vagrant](https://www.vagrantup.com/), [Ansible](http://www.ansible.com/home) and [vagrant-digitalocean plugin](https://github.com/smdahlen/vagrant-digitalocean/), you need to install them first.
 
-1. Install required packages.
+* Install required packages.
 ```
 sudo apt-get install vagrant ansible
-sudo vagrant plugin install vagrant-digitalocean
+vagrant plugin install vagrant-digitalocean
 ```
-2. Clone this repository
+* Clone this repository
 ```
 git clone https://github.com/daikikohara/vagrant-do-privoxy.git
 ```
-3. Configure some part of files according to your configuration.
-4. Run the Vagrantfile
+* Configure some part of files according to your configuration.
+* Run the Vagrantfile
 ```
-sudo vagrant up --provider=digital_ocean
+vagrant up --provider=digital_ocean
 ```
 
 If you would like to ssh to the server using `vagrant ssh`, you'll need to add `config.ssh.port = '443'` in your Vagrantfile after step 4.
